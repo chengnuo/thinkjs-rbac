@@ -6,7 +6,7 @@
     </div>
     <?php if( $set_flag ):?>
     <div class="col-xs-3 col-sm-3 col-md-3  col-lg-3">
-        <a href="<?=UrlService::buildUrl("/user/set");?>" class="btn btn-link pull-right">添加用户</a>
+        <a href="/user/set" class="btn btn-link pull-right">添加用户</a>
     </div>
     <?php endif;?>
 </div>
@@ -21,6 +21,7 @@
             </tr>
         </thead>
         <tbody>
+          <!--
 		<?php if( $list ):?>
             <?php foreach( $list as $_key => $_user_info ):?>
             <tr>
@@ -36,6 +37,22 @@
         <?php else:?>
             <tr> <td colspan="3">暂无用户</td> </tr>
         <?php endif;?>
+      -->
+
+        <% if(roleList.length){ %>
+    			<% roleList.forEach(function(item){ %>
+    			<tr>
+    				<td><%= item.name %></td>
+    				<td><%= item.email %></td>
+    				<td>
+    					<a href="/user/set">编辑</a>
+    				</td>
+    			</tr>
+
+    			<% }) %>
+    		<% }else{ %>
+    			<tr><td colspan="2">暂无权限</td></tr>
+    		<% } %>
         </tbody>
     </table>
 </div>
