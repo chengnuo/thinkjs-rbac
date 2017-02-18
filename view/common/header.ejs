@@ -23,7 +23,7 @@
 ;jQuery(function ($){
 	$("#login").on("click",function(){
 		$.ajax({
-			url: '/user/login/login',
+			url: '/home/login/dologin',
 			data: {
 				email:$("#inputEmail3").val()
 			},
@@ -31,7 +31,7 @@
 			success: function (json) {
 				if (json.status === 1) {
 					alert("登录成功,"+json.errmsg);
-					window.location.href = "/user/user";
+					window.location.href = "/home/1";
 				}else{
 					alert("登录失败,"+json.errmsg)
 				}
@@ -44,7 +44,7 @@
 </head>
 <body>
 
-      <% var rbacUserInfo = rbacUserInfo || null  %>
+
 
       <!-- -->
       <!--导航条-->
@@ -60,11 +60,9 @@
                   <ul class="nav navbar-nav">
                       <li class="active"><a href="/">首页</a></li>
                       <li class="">
-                        <% if(rbacUserInfo){ %>
+
                           <a href="javascript:;"><%=rbacUserInfo.email%></a>
-                        <% }else{ %>
-                          <a href="javascript:;">小混蛋，你没登录呢，看什么看</a>
-                        <% } %>
+    
 
                       </li>
                   </ul>

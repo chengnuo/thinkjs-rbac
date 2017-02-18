@@ -5,13 +5,15 @@
  */
 export default {
   type: 'mysql',
+  log_sql: true,
+  log_connect: true,
   adapter: {
     mysql: {
       host: '127.0.0.1',
-      port: '',
-      database: '',
-      user: '',
-      password: '',
+      port: '3306',
+      database: 'rbac',
+      user: 'root',
+      password: 'root',
       prefix: '',
       encoding: 'utf8'
     },
