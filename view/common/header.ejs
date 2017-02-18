@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>New ThinkJS Application</title>
+<style>
+.mt100{
+    margin-top: 100px;
+}
+
+/*@media (min-width: 1200px){
+    .main{
+        width: 50% !important;
+    }
+}*/
+
+
+</style>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+;jQuery(function ($){
+	$("#login").on("click",function(){
+		$.ajax({
+			url: '/user/login/login',
+			data: {
+				email:$("#inputEmail3").val()
+			},
+			type: 'POST',
+			success: function (json) {
+				if (json.status === 1) {
+					alert("登录成功,"+json.errmsg);
+					window.location.href = "/user/user";
+				}else{
+					alert("登录失败,"+json.errmsg)
+				}
+			}
+		})
+	});
+
+});
+</script>
+</head>
+<body>
+
+      <% var rbacUserInfo = rbacUserInfo || null  %>
+
+      <!-- -->
+      <!--导航条-->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                  <a class="navbar-brand" href="#">RBAC</a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                      <li class="active"><a href="/">首页</a></li>
+                      <li class="">
+                        <% if(rbacUserInfo){ %>
+                          <a href="javascript:;"><%=rbacUserInfo.email%></a>
+                        <% }else{ %>
+                          <a href="javascript:;">小混蛋，你没登录呢，看什么看</a>
+                        <% } %>
+
+                      </li>
+                  </ul>
+
+                  <a href="/login" class="btn btn-primary navbar-right">登录</a>
+
+
+
+              </div>
+          </div>
+      </nav>
+
+      <!--菜单栏和内容区域-->
+      <div class="container-fluid mt100">
+          <div class="col-sm-2 col-md-2 col-lg-2 sidebar">
+              <ul class="nav nav-sidebar">
+                  <li>权限演示页面</li>
+                  <li><a href="/1">测试页面一</a></li>
+                  <li><a href="/2">测试页面二</a></li>
+                  <li><a href="/3">测试页面三</a></li>
+                  <li><a href="/4">测试页面四</a></li>
+                  <li><a href="/5">测试页面五</a></li>
+                  <li>系统设置</li>
+                  <li><a href="/user">用户管理</a></li>
+                  <li><a href="/role">角色管理</a></li>
+                  <li><a href="/access">权限管理</a></li>
+              </ul>
+          </div>
+          <div class="col-lg-9 main">
+
+
+      <!-- -->
