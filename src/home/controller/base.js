@@ -12,6 +12,7 @@
      }
     let rbacUserInfo=await this.session("rbacUserInfo");
     if(think.isEmpty(rbacUserInfo)){
+        this.assign('rbacUserInfo',{});
         if(this.isAjax()){
            return this.fail('NOT_LOGIN');
          }
