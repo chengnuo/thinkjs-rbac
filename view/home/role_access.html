@@ -1,7 +1,53 @@
 <% include ../common/header %>
+<script>
+;
+var role_access_set_ops = {
+    init: function () {//初始化方法
+        this.eventBind();
+    },
+    eventBind: function () {//事件绑定
+        $(".role_access_set_wrap .save").click( function(){
+            var btn_target = $(this);
+            if( btn_target.hasClass("disabled") ){
+                alert("正在处理，请不要重复提交~~");
+                return false;
+            }
+
+            var access_ids = [];
+            $(".role_access_set_wrap input[name='access_ids[]']").each(function () {
+                if ($(this).prop("checked")) {
+                    access_ids.push( $(this).val() );
+                }
+            });
+
+            btn_target.addClass("disabled");
+            $.ajax({
+                url:'/role/doaccess',
+                type:'POST',
+                data:{
+                    id:$(".role_access_set_wrap input[name=id]").val(),
+                    access_ids:access_ids
+                },
+                dataType:'json',
+                success:function( res ){
+                    btn_target.removeClass("disabled");
+                    alert( res.msg );
+                    if( res.code == 200 ){
+                        window.location.href = "/role/index";
+                    }
+                }
+            });
+        });
+    }
+};
+
+$(document).ready( function() {
+    role_access_set_ops.init();
+});
+</script>
 <div class="row">
 	<div class="col-xs-9 col-sm-9 col-md-9  col-lg-9">
-		<h5>为 <?=$info["name"];?> 设置权限</h5>
+		<h5>为 <%= info.name %> 设置权限</h5>
 	</div>
 </div>
 <hr/>
@@ -9,6 +55,7 @@
 	<div class="form-horizontal role_access_set_wrap" role="form">
         <div class="form-group">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<!--
                 <?php if( $access_list ):?>
                     <?php foreach( $access_list as $_item ):?>
                         <div class="checkbox">
@@ -21,10 +68,25 @@
                         </div>
                     <?php endforeach;?>
                 <?php endif;?>
+				-->
+
+
+				<% if(access_list){ %>
+					<% access_list.forEach(function(item){ %>
+						<div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="access_ids[]" value=<%= item.id %>
+
+								/>
+                                <%= item.title %>
+                            </label>
+                        </div>
+			        <% }) %>
+				<% } %>
             </div>
         </div>
 		<div class="col-xs-6 col-xs-offset-2 col-sm-6 col-sm-offset-2 col-md-6  col-md-offset-2 col-lg-6 col-sm-lg-2 ">
-            <input type="hidden" name="id" value="<?=$info['id'];?>">
+            <input type="hidden" name="id" value=<%= info.id %>>
 			<button type="button" class="btn btn-primary pull-right  save">确定</button>
 		</div>
 	</div>

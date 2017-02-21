@@ -16,6 +16,20 @@ export default class extends Base {
   async setAction(){
     let result=await this.model("role").limit(10).select();
     this.assign("roleList",result)
+
+
+    var i = 0;
+    var myGet = this.get();
+    var myDetail = "";
+    for( i in myGet){
+       myDetail = i
+    }
+
+
+    let info=await this.model("user").where({id:myDetail}).find();
+    this.assign("info",info)
+
+
     //auto render template file index_index.html
     return this.display();
   }
