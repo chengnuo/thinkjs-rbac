@@ -13,7 +13,17 @@ export default class extends Base {
      //auto render template file index_index.html
      return this.display();
    }
-  setAction(){
+  async setAction(){
+    var i = 0;
+    var myGet = this.get();
+    var myDetail = "";
+    for( i in myGet){
+        myDetail = i
+    }
+    let data = this.get();
+    let info=await this.model("access").where({id:myDetail}).find();
+
+    this.assign("info",info)
     //auto render template file index_index.html
     return this.display();
   }
